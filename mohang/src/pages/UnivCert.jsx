@@ -6,6 +6,8 @@ import backIcon from "../assets/images/back.png";
 import beforecheck from "../assets/images/beforecheck.png";
 import check from "../assets/images/check.png";
 import { HandleUnivLogin, HandleUnivcode } from "../api/auth";
+import axios from "axios";
+import { BASE_URL } from "../static";
 
 const UnivCert = () => {
   const [signUpError, setSignUpError] = useState(false);
@@ -35,8 +37,13 @@ const UnivCert = () => {
         univ_email: email,
       };
 
-      await HandleUnivLogin(userData);
-
+      await axios.post(`${BASE_URL}/user/univcert.com/api/v1/certify`, userData)
+        .then((res) => {
+          console.log(res);     
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       setSignUpSuccess(true);
       setSignUpError(false);
     } catch (error) {
@@ -55,8 +62,19 @@ const UnivCert = () => {
         univ_email: email,
       };
 
-      await HandleUnivcode(userData);
-
+      await 
+        axios.post(`${BASE_URL}/univcert.com/api/v1/certifycode`, userData, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          navigate('/myEvent');     
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       setSignUpSuccess(true);
       setSignUpError(false);
     } catch (error) {
