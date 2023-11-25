@@ -56,6 +56,7 @@ const SignUp = () => {
         setMismatchError(true);
         return;
       }
+      
       const userData = {
         email: email,
         nickname: nickname,

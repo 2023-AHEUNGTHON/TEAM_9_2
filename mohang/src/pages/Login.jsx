@@ -11,7 +11,8 @@ import {
 } from "../styles/login_styles";
 import { Link, useNavigate } from "react-router-dom";
 import LogInLogos from "../assets/images/LogInLogos.png";
-import { HandleLogin } from "../api/auth";
+import axios from "axios";
+import { BASE_URL } from "../static";
 
 const LogIn = () => {
   const [logInError, setLogInError] = useState(false);
@@ -19,25 +20,32 @@ const LogIn = () => {
   const [password, onChangePassword] = useInput("");
   const navigate = useNavigate();
 
-  
-
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!email || !password ) {
-      // Handle the case where some fields are empty (e.g., show an error message)
-      setLogInError(true);
-      return;
-    }
+
     try {
+      if (!email || !password ) {
+        setLogInError(true);
+        return;
+      }
+
       const userData = {
         email : email, 
         password : password,
       };
-      navigate('/today');
-      await HandleLogin(userData);
-      setLogInError(false);
 
-    } catch (error) {
+    await axios.post(`${BASE_URL}/user/login`, userData)
+        .then((res) => {
+          sessionStorage.setItem("token", res.data);
+          setLogInError(false);
+          console.log(res);
+          navigate('/today');
+        })
+        .catch((err) => {
+          setLogInError(true);
+          console.log(err);
+        });
+      } catch (error) {
       // 등록 오류 처리
       setLogInError(true);
     }
@@ -81,6 +89,7 @@ const LogIn = () => {
           </div>
         </Label>
         <Button type="submit">로그인 하기</Button>
+        {logInError && <Error>로그인에 실패했습니다.</Error>}
       </Form>
       <LinkContainer>
         <Link to="/signup" className="black mt-7">
