@@ -13,6 +13,7 @@ import TodayEvents from "./pages/TodayEvents";
 import UnivCert from "./pages/UnivCert";
 import RegisterForm from "./pages/RegisterForm";
 import EventDetail from "./pages/EventDetail";
+import UnivComplete from "./pages/UnivComplete";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: "event/:id",
         element: <EventDetail />,
+      },
+      {
+        path: "univcomplete",
+        element: <UnivComplete />,
       },
     ],
   },
