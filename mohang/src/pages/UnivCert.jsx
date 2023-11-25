@@ -39,7 +39,6 @@ const UnivCert = () => {
 
       setSignUpSuccess(true);
       setSignUpError(false);
-      // navigate('/succesUnivCert');
     } catch (error) {
       setSignUpSuccess(false);
       setSignUpError(true);
