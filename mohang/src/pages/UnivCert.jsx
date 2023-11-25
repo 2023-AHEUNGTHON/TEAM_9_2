@@ -15,6 +15,10 @@ const UnivCert = () => {
   const [univpassword, , setUnivPassword] = useInput("");
   const navigate = useNavigate();
 
+  const Goback = () => {
+    navigate(-1);
+  };
+
   const onChangePassword = useCallback(
     (e) => {
       setUnivPassword(e.target.value);
@@ -65,7 +69,7 @@ const UnivCert = () => {
   return (
     <div id="container">
       <section className="flex flex-col px-[22px] py-4">
-        <Link to="#">
+        <Link onClick={Goback}>
           <img
             src={backIcon}
             alt="backIcon"

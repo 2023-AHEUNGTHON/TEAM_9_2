@@ -44,6 +44,7 @@ const SignUp = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    
   
     try {
       if (!email || !nickname || !password || !passwordCheck) {
@@ -56,7 +57,7 @@ const SignUp = () => {
         setMismatchError(true);
         return;
       }
-      
+
       const userData = {
         email: email,
         nickname: nickname,
